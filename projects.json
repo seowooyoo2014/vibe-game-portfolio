@@ -7,7 +7,7 @@
     "tech": "Godot · GDScript",
     "color": "#d77bb3",
     "image": "docs/screenshots/current-battle.png",
-    "source_sha": "8fa69e78f8008299cf14b130694b1c4148999599"
+    "source_sha": "b4368f42afd95adc1c6befa8564c9c08e50967dd"
   },
   {
     "slug": "horizon-six-routes",
@@ -17,7 +17,7 @@
     "tech": "Canvas · JavaScript · Unity",
     "color": "#74d5ce",
     "image": "docs/screenshots/current-gameplay.png",
-    "source_sha": "43391d4c891e7ed67a4a8b33b874916812e7c9a5"
+    "source_sha": "aa7efedc319cca57d5f9461cb2ad62553792c650"
   },
   {
     "slug": "hole-city-rush",
@@ -27,7 +27,7 @@
     "tech": "Three.js · JavaScript",
     "color": "#bbdb76",
     "image": "docs/screenshots/current-city.png",
-    "source_sha": "2201a23b3194004e47dcf6d726ffdcc43dd649d7"
+    "source_sha": "e136dbdc4efbec81e62b1a139623aa80f22e62a9"
   },
   {
     "slug": "turbo-circuit-legends",
@@ -37,7 +37,7 @@
     "tech": "Three.js · Web Audio",
     "color": "#68aef4",
     "image": "docs/screenshots/current-race.png",
-    "source_sha": "a85db69bc15e434f5f3f32c4d03f5c6f162ddf4f"
+    "source_sha": "b27560c3abff0a79e30f4be237268dd5e17d393b"
   },
   {
     "slug": "red-desert-gambler-3d",
@@ -47,6 +47,6 @@
     "tech": "Three.js · JavaScript",
     "color": "#ef9b75",
     "image": "docs/screenshots/current-cutscene.png",
-    "source_sha": "793c7f362ed3190f269132f8a52728a7a0384402"
+    "source_sha": "c7c532e4c54e34c9285569a1105b1642b9c8a504"
   }
 ]
