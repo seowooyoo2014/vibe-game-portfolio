@@ -1,0 +1,38 @@
+name: Publish portfolio
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - name: Fetch project documentation
+        run: |
+          python3 - <<'PY2'
+          import json,pathlib,subprocess
+          for project in json.loads(pathlib.Path('projects.json').read_text()):
+              slug=project['slug']; dest=pathlib.Path('..')/slug
+              subprocess.run(['git','clone','--quiet','https://github.com/seowooyoo2014/'+slug+'.git',str(dest)],check=True)
+              sha=project.get('source_sha')
+              if sha:subprocess.run(['git','checkout','--quiet',sha],cwd=dest,check=True)
+          PY2
+      - name: Build portfolio
+        run: python3 build.py
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4

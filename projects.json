@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "survivor-spine-breaker",
+    "title": "서바이버 등골 브레이커",
+    "genre": "관찰형 군단 전투",
+    "desc": "네 전장을 지휘하며 악마 군단을 성장시킨다.",
+    "tech": "Godot · GDScript",
+    "color": "#d77bb3",
+    "image": "screenshots/observer_v1.png",
+    "source_sha": "3f78818fe85d6c068b65672d71f233edc9769f14"
+  },
+  {
+    "slug": "horizon-six-routes",
+    "title": "수평선의 여섯 항로",
+    "genre": "항해·교역 RPG",
+    "desc": "선장을 선택하고 바람, 교역, 사건을 따라 항로를 개척한다.",
+    "tech": "Canvas · JavaScript · Unity",
+    "color": "#74d5ce",
+    "image": "docs/screenshots/town_bella_960x540.png",
+    "source_sha": "8d9596946cd6ddfa8357a57a5eaa1875714ad8de"
+  },
+  {
+    "slug": "hole-city-rush",
+    "title": "Hole City Rush",
+    "genre": "3D 성장 액션",
+    "desc": "도시의 작은 물건부터 은하계까지 흡수하며 커진다.",
+    "tech": "Three.js · JavaScript",
+    "color": "#bbdb76",
+    "image": "docs/screenshots/gameplay-city.png",
+    "source_sha": "d600d4967c6e987e4e0818dbde003a29581aa25b"
+  },
+  {
+    "slug": "turbo-circuit-legends",
+    "title": "Turbo Circuit Legends",
+    "genre": "3D 레이싱",
+    "desc": "스토리, 레이싱, 오픈월드를 오가는 카트 레이싱.",
+    "tech": "Three.js · Web Audio",
+    "color": "#68aef4",
+    "image": "",
+    "source_sha": "c77df2f635911827aabec80b5aca5261b94278a6"
+  },
+  {
+    "slug": "red-desert-gambler-3d",
+    "title": "붉은 사막의 도박꾼 3D",
+    "genre": "3D 탐험·도박",
+    "desc": "사막을 건너 단서를 모으고 도박장 결투에 도전한다.",
+    "tech": "Three.js · JavaScript",
+    "color": "#ef9b75",
+    "image": "",
+    "source_sha": "e8983d0aec58407e0b2f4c2f1c5f736a8772188f"
+  }
+]
