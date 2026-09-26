@@ -4,6 +4,18 @@ ROOT=Path(__file__).resolve().parent
 BASE=ROOT.parent
 OUT=ROOT/'dist'
 DATA=json.loads((ROOT/'projects.json').read_text(encoding='utf8'))
+# Both local and CI builds must use the documented source revisions.
+for project in DATA:
+ source=BASE/project['slug']
+ expected=project.get('source_sha','')
+ if not re.fullmatch(r'[0-9a-f]{40}',expected):
+  raise ValueError(f"Missing full source SHA: {project['slug']}")
+ actual=subprocess.check_output(['git','rev-parse','HEAD'],cwd=source,text=True).strip()
+ if actual!=expected:
+  raise RuntimeError(f"{project['slug']}: expected {expected}, found {actual}. Check out the pinned revision before building.")
+ dirty=subprocess.check_output(['git','status','--porcelain','--','docs','screenshots'],cwd=source,text=True).strip()
+ if dirty:
+  raise RuntimeError(f"Uncommitted documentation or screenshots: {project['slug']}")
 if OUT.exists():shutil.rmtree(OUT)
 OUT.mkdir()
 shutil.copy2(ROOT/'style.css',OUT/'style.css')
@@ -43,8 +55,8 @@ def layout(title,body):
  return f'''<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#09121e"><meta name="description" content="직접 플레이하고 제작 과정을 읽을 수 있는 다섯 게임의 포트폴리오"><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2309121e'/%3E%3Cpath d='M13 22h38v20H13z' fill='none' stroke='%2388ceea' stroke-width='5'/%3E%3Cpath d='M23 28v10m-5-5h10' stroke='%23f3ca72' stroke-width='4'/%3E%3Ccircle cx='41' cy='30' r='3' fill='%23f3ca72'/%3E%3C/svg%3E"><link rel="stylesheet" href="{('../../' if title!='게임 전시관' else '')}style.css"><title>{E(title)} · Vibe Game Portfolio</title></head><body><a class="skip" href="#main">본문으로 건너뛰기</a><header class="top shell"><a class="brand" href="{('../../' if title!='게임 전시관' else './')}">VIBE <span>GAME</span> PORTFOLIO</a><nav aria-label="주 메뉴"><a href="{('../../' if title!='게임 전시관' else '#games')}">게임</a><a href="https://github.com/seowooyoo2014">GitHub</a></nav></header><main id="main" class="shell">{body}</main><footer class="footer"><div class="shell">seowooyoo2014 · 플레이 가능한 게임과 제작 기록</div></footer></body></html>'''
 def card(p):
  slug=p['slug'];src=BASE/slug;im=p.get('image','');image=f'<img src="images/{slug}/{Path(im).name}" alt="{E(p["title"])} 실제 화면" loading="lazy">' if im and (src/im).exists() else f'<span class="monogram">{E(p["title"])}</span>'
- return f'<article class="card" style="--accent:{p["color"]}"><div class="visual">{image}</div><div class="copy"><div class="type">{E(p["genre"])}</div><h2>{E(p["title"])}</h2><p>{E(p["desc"])}</p><div class="tech">{E(p["tech"])}</div><div class="actions"><a class="btn primary" href="https://seowooyoo2014.github.io/{slug}/">플레이</a><a class="btn" href="games/{slug}/">제작 기록</a></div></div></article>'
-intro='<div class="intro"><div><div class="eyebrow">Five playable worlds</div><h1>만든 게임을<br>직접 플레이하세요.</h1><p>다섯 세계의 게임 화면, 플레이 방법, 설계와 제작 과정을 한곳에 모았습니다.</p></div><span class="count">05 GAMES · 05 STORIES</span></div>'
+ return f'<article class="card" style="--accent:{p["color"]}"><div class="visual">{image}</div><div class="copy"><div class="type">{E(p["genre"])}</div><h2>{E(p["title"])}</h2><p>{E(p["desc"])}</p><div class="effort"><span>만들며 집중한 것</span><p>{E(p["effort"])}</p></div><div class="tech">{E(p["tech"])}</div><div class="actions"><a class="btn primary" href="https://seowooyoo2014.github.io/{slug}/">플레이</a><a class="btn" href="games/{slug}/">제작 기록</a></div></div></article>'
+intro='<div class="intro"><div><div class="eyebrow">YOUNG CREATOR · GROWING THROUGH GAMES</div><h1>상상한 세계를,<br>플레이할 수 있도록.</h1><p>게임을 좋아하는 초등학생의 바이브 코딩 포트폴리오. 아이디어를 실행하고, 고치고, 더 큰 세계로 발전시키는 과정을 기록합니다.</p></div><span class="count">05 GAMES · 05 STORIES</span></div>'
 (OUT/'index.html').write_text(layout('게임 전시관',intro+'<div id="games" class="grid">'+''.join(card(p) for p in DATA)+'</div>'),encoding='utf8')
 for p in DATA:
  slug=p['slug'];src=BASE/slug;dest=OUT/'games'/slug;dest.mkdir(parents=True)
@@ -78,6 +90,7 @@ for p in DATA:
  else:hero=''
  gallery='<div class="gallery">'+''.join(f'<img src="../../images/{slug}/{f.name}" alt="{E(p["title"])} 실제 화면 {i+1}" loading="lazy">' for i,f in enumerate(selected))+'</div>' if selected else ''
  head=f'<div class="detail-header" style="--accent:{p["color"]}"><a class="back" href="../../">← 전체 게임</a><div class="eyebrow">{E(p["genre"])}</div><h1>{E(p["title"])}</h1><p>{E(p["desc"])}</p><div class="actions"><a class="btn primary" href="https://seowooyoo2014.github.io/{slug}/">바로 플레이</a><a class="btn" href="https://github.com/seowooyoo2014/{slug}">GitHub 저장소</a></div></div>'
- body=head+hero+gallery+'<div class="detail-layout"><nav class="toc" aria-label="이 게임 문서 목차">'+''.join(toc)+'</nav><div class="content">'+''.join(sections)+'</div></div>'
+ focus=f'<section class="project-focus"><div><div class="eyebrow">THE CONCEPT</div><h2>어떤 게임을 만들었나요?</h2><p>{E(p["concept"])}</p></div><div><div class="eyebrow">THE PROCESS</div><h2>어디에 힘을 쏟았나요?</h2><p>{E(p["effort"])}</p><p class="muted">아래 제작 기록은 남아 있는 코드와 기획 문서를 근거로 정리했습니다.</p></div></section>'
+ body=head+hero+focus+gallery+'<div class="detail-layout"><nav class="toc" aria-label="이 게임 문서 목차">'+''.join(toc)+'</nav><div class="content">'+''.join(sections)+'</div></div>'
  (dest/'index.html').write_text(layout(p['title'],body),encoding='utf8')
 print('built',len(DATA),'games')
