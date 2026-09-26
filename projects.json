@@ -55,7 +55,7 @@
     "tech": "Three.js · JavaScript",
     "color": "#ef9b75",
     "image": "docs/screenshots/current-cutscene.png",
-    "source_sha": "09c763e9c918f30634789dce5eacba06bf4d75d3",
+    "source_sha": "458b44e5511a2139e4393b881257e9502e09760c",
     "concept": "사막의 소문과 단서를 따라 도박장 결투로 향하는 탐험.",
     "effort": "탐험, 상점, 낚시와 결투를 하나의 3D 게임 흐름으로 구성했습니다."
   }
