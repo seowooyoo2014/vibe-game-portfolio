@@ -7,7 +7,7 @@
     "tech": "Godot · GDScript",
     "color": "#d77bb3",
     "image": "docs/screenshots/current-battle.png",
-    "source_sha": "b4368f42afd95adc1c6befa8564c9c08e50967dd",
+    "source_sha": "dcf20b87690eddb259cb0f34a6b0684e57121c83",
     "concept": "전투를 직접 조작하는 대신 여러 전장을 관찰하고 군단을 키우는 전략.",
     "effort": "자동 전투에서 최대 네 전장으로 확장하면서 보상과 챕터 진행을 연결했습니다."
   },
@@ -19,7 +19,7 @@
     "tech": "Canvas · JavaScript · Unity",
     "color": "#74d5ce",
     "image": "docs/screenshots/current-gameplay.png",
-    "source_sha": "aa7efedc319cca57d5f9461cb2ad62553792c650",
+    "source_sha": "2773e11ad4d4886bfa34a67c89cd7a87db926390",
     "concept": "항해와 교역, 선택에 따라 이어지는 나만의 모험.",
     "effort": "Unity 시제품에서 브라우저판으로 발전시키고 시작항과 세비야의 화면 구성을 보강했습니다."
   },
@@ -31,7 +31,7 @@
     "tech": "Three.js · JavaScript",
     "color": "#bbdb76",
     "image": "docs/screenshots/current-city.png",
-    "source_sha": "e136dbdc4efbec81e62b1a139623aa80f22e62a9",
+    "source_sha": "ae5f928d723b30cc4dc8ccba82cdf0bd5d954f84",
     "concept": "작은 물건을 삼키던 구멍이 도시를 넘어 우주까지 성장하는 액션.",
     "effort": "성장 단계의 규모감을 넓히고 영화·성능 모드와 최종전 영상을 연결했습니다."
   },
@@ -43,7 +43,7 @@
     "tech": "Three.js · Web Audio",
     "color": "#68aef4",
     "image": "docs/screenshots/current-race.png",
-    "source_sha": "b27560c3abff0a79e30f4be237268dd5e17d393b",
+    "source_sha": "5ca4e2c331397f899d6c94dd88f08c11638762d0",
     "concept": "한 번의 경주를 넘어 이야기와 오픈월드로 이어지는 레이싱.",
     "effort": "드리프트·아이템·AI 레이서에 스토리 진행과 월드 이동을 더했습니다."
   },
@@ -55,7 +55,7 @@
     "tech": "Three.js · JavaScript",
     "color": "#ef9b75",
     "image": "docs/screenshots/current-cutscene.png",
-    "source_sha": "c7c532e4c54e34c9285569a1105b1642b9c8a504",
+    "source_sha": "09c763e9c918f30634789dce5eacba06bf4d75d3",
     "concept": "사막의 소문과 단서를 따라 도박장 결투로 향하는 탐험.",
     "effort": "탐험, 상점, 낚시와 결투를 하나의 3D 게임 흐름으로 구성했습니다."
   }
