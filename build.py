@@ -67,6 +67,7 @@ for p in DATA:
   if not f.exists():raise FileNotFoundError(f)
   body=markdown(f.read_text(encoding='utf8'))
   body=re.sub(r'^<h1>.*?</h1>', '',body,count=1)
+  body=re.sub(r'<(/?)h([2-4])>',lambda m:'<'+m[1]+'h'+str(int(m[2])+1)+'>',body)
   sections.append(f'<section id="{key}"><h2>{label}</h2>{body}</section>');toc.append(f'<a href="#{key}">{label}</a>')
  images=[]
  for f in sorted((src/'docs'/'screenshots').glob('*')) if (src/'docs'/'screenshots').exists() else []:
@@ -88,7 +89,8 @@ for p in DATA:
  if p.get('image') and (src/p['image']).exists() and (image_dir/Path(p['image']).name).exists():hero=f'<img class="hero-shot" src="../../images/{slug}/{Path(p["image"]).name}" alt="{E(p["title"])} 게임 화면">'
  elif selected:hero=f'<img class="hero-shot" src="../../images/{slug}/{selected[0].name}" alt="{E(p["title"])} 게임 화면">'
  else:hero=''
- gallery='<div class="gallery">'+''.join(f'<img src="../../images/{slug}/{f.name}" alt="{E(p["title"])} 실제 화면 {i+1}" loading="lazy">' for i,f in enumerate(selected))+'</div>' if selected else ''
+ captions={'current-battle':'1장 전투','current-chapters':'챕터 선택','current-victory':'전투 결과','current-menu':'시작 화면','current-captain':'선장 선택','current-gameplay':'항해 플레이','current-performance':'성능 모드','current-city':'도시 플레이','current-select':'레이서 선택','current-race':'경주 플레이','current-story':'이야기 도입','current-cutscene':'도입 컷신'}
+ gallery='<div class="gallery">'+''.join(f'<figure><a href="../../images/{slug}/{f.name}"><img src="../../images/{slug}/{f.name}" alt="{E(p["title"])} — {E(captions.get(f.stem,"실제 플레이 화면"))}" loading="lazy"></a><figcaption>{E(captions.get(f.stem,"실제 플레이 화면"))}</figcaption></figure>' for i,f in enumerate(selected))+'</div>' if selected else ''
  head=f'<div class="detail-header" style="--accent:{p["color"]}"><a class="back" href="../../">← 전체 게임</a><div class="eyebrow">{E(p["genre"])}</div><h1>{E(p["title"])}</h1><p>{E(p["desc"])}</p><div class="actions"><a class="btn primary" href="https://seowooyoo2014.github.io/{slug}/">바로 플레이</a><a class="btn" href="https://github.com/seowooyoo2014/{slug}">GitHub 저장소</a></div></div>'
  focus=f'<section class="project-focus"><div><div class="eyebrow">THE CONCEPT</div><h2>어떤 게임을 만들었나요?</h2><p>{E(p["concept"])}</p></div><div><div class="eyebrow">THE PROCESS</div><h2>어디에 힘을 쏟았나요?</h2><p>{E(p["effort"])}</p><p class="muted">아래 제작 기록은 남아 있는 코드와 기획 문서를 근거로 정리했습니다.</p></div></section>'
  body=head+hero+focus+gallery+'<div class="detail-layout"><nav class="toc" aria-label="이 게임 문서 목차">'+''.join(toc)+'</nav><div class="content">'+''.join(sections)+'</div></div>'
